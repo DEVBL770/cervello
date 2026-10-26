@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Connexion TikTok - Professeur Cervello Studio</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:720px;margin:40px auto;padding:0 16px;line-height:1.6;color:#1d1b2e}
+code{display:block;word-break:break-all;background:#f3f1ea;padding:12px;border-radius:8px;font-size:15px}
+button{margin-top:12px;padding:10px 18px;font-size:16px;border-radius:8px;border:2px solid #1d1b2e;background:#ffd84a;cursor:pointer}
+</style>
+</head>
+<body>
+<h1>Connexion TikTok</h1>
+<p id="msg">Lecture du code…</p>
+<code id="code"></code>
+<button id="copy" hidden>Copier le code</button>
+<script>
+const p = new URLSearchParams(location.search);
+const code = p.get('code');
+const err = p.get('error_description') || p.get('error');
+const msg = document.getElementById('msg');
+if (code) {
+  msg.textContent = "C'est bon ! Copie ce code et colle-le dans la fenêtre du robot sur le PC :";
+  document.getElementById('code').textContent = code;
+  const b = document.getElementById('copy');
+  b.hidden = false;
+  b.onclick = () => navigator.clipboard.writeText(code).then(() => { b.textContent = 'Copié !'; });
+} else if (err) {
+  msg.textContent = 'TikTok a refusé la connexion : ' + err;
+} else {
+  msg.textContent = "Cette page reçoit le code de connexion TikTok. Aucun code n'a été reçu.";
+}
+</script>
+</body>
+</html>
